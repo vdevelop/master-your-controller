@@ -39,6 +39,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+uint8_t rx_buffer[4];
  UART_HandleTypeDef hlpuart1;
 UART_HandleTypeDef huart1;
 
@@ -101,6 +102,9 @@ int main(void)
     /* USER CODE END WHILE */
 	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 	HAL_Delay(250); // 250ms delay
+
+	HAL_UART_Transmit(&huart1, rx_buffer, 4, 300);
+	HAL_UART_Receive(&huart1, rx_buffer, 4, 2000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
