@@ -97,19 +97,24 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_UART_Receive_IT(&huart1, rx_buffer, 4);
   while (1)
   {
     /* USER CODE END WHILE */
 	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 	HAL_Delay(250); // 250ms delay
 
-	HAL_UART_Transmit(&huart1, rx_buffer, 4, 300);
-	HAL_UART_Receive(&huart1, rx_buffer, 4, 2000);
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
 
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	HAL_UART_Transmit(&huart1, rx_buffer, 4, 300);
+	HAL_UART_Receive_IT(&huart1, rx_buffer, 4);
+}
 /**
   * @brief System Clock Configuration
   * @retval None
